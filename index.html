@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JsBarcode and BWIP-JS</title>
+  </head>
+  <link rel="stylesheet" href="style.css" />
+  <body>
+    <div class="barcode-container">
+      <div class="jsbarcode">
+        <label for="name">Name:</label>
+        <input type="text" id="name" , name="name" />
+        <svg id="barcode"></svg>
+      </div>
+      <div class="qrcode">
+        <canvas id="mycanvas"></canvas>
+      </div>
+    </div>
+    <script src="JsBarcode.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bwip-js/4.5.0/bwip-js-min.js"></script>
+    <script>
+      JsBarcode("#barcode", "Hi!");
+      try {
+        bwipjs.toCanvas("mycanvas", {
+          bcid: "qrcode",
+          text: "https://example.com",
+          scale: 2,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    </script>
+  </body>
+</html>
