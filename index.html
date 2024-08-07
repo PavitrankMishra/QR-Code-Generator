@@ -4,32 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JsBarcode and BWIP-JS</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <link rel="stylesheet" href="style.css" />
   <body>
     <div class="barcode-container">
       <div class="jsbarcode">
-        <label for="name">Name:</label>
-        <input type="text" id="name" , name="name" />
+        <label for="barcode-name" class="jsbarcode-label">Name:</label>
+        <input
+          type="text"
+          id="barcode-name"
+          name="name"
+          class="jsbarcode-input"
+        />
+        <button type="submit" id="generate-barcode">Generate Barcode</button>
         <svg id="barcode"></svg>
       </div>
       <div class="qrcode">
+        <label for="qrcode-name" class="qrcode-label">Name:</label>
+        <input type="text" id="qrcode-name" name="name" class="qrcode-input" />
+        <button type="submit" id="generate-qrcode">Generate QR Code</button>
         <canvas id="mycanvas"></canvas>
       </div>
     </div>
     <script src="JsBarcode.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bwip-js/4.5.0/bwip-js-min.js"></script>
     <script>
-      JsBarcode("#barcode", "Hi!");
-      try {
-        bwipjs.toCanvas("mycanvas", {
-          bcid: "qrcode",
-          text: "https://example.com",
-          scale: 2,
+      document
+        .getElementById("generate-barcode")
+        .addEventListener("click", function () {
+          const text = document.getElementById("barcode-name").value;
+          JsBarcode("#barcode", text);
         });
-      } catch (e) {
-        console.log(e);
-      }
+
+      document
+        .getElementById("generate-qrcode")
+        .addEventListener("click", function () {
+          const text = document.getElementById("qrcode-name").value;
+          try {
+            bwipjs.toCanvas("mycanvas", {
+              bcid: "qrcode",
+              text: text,
+              scale: 2,
+            });
+          } catch (e) {
+            console.log(e);
+          }
+        });
     </script>
   </body>
 </html>
